@@ -17,13 +17,18 @@ function PokemonPage() {
     .then(data => setPokemons(data))
   }, [])
 
-    // capture user search Input
-    function handleSearch(e) {
-      const search = e.target.value
-      setSearchText(search)
-      console.log(search)
-    }
-  
+  // capture user search Input
+  function handleSearch(e) {
+    const search = e.target.value
+    setSearchText(search)
+  }
+
+
+  // add new pokemon to list
+  function onAddPokemon(newObj) {
+    setPokemons([...pokemons, newObj])
+  }
+
 
   // onSeach CB from Seach
   const searchResult = pokemons.filter(pokemon => 
@@ -33,7 +38,7 @@ function PokemonPage() {
     <Container>
       <h1>Pokemon Searcher</h1>
       <br />
-      <PokemonForm />
+      <PokemonForm onAddPokemon={onAddPokemon}/>
       <br />
       <Search onSearch={handleSearch}/>
       <br />
