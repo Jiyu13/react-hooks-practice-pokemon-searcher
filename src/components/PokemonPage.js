@@ -8,6 +8,7 @@ function PokemonPage() {
 
   // set state variables
   const [pokemons, setPokemons] = useState([])
+  const [searchText, setSearchText] = useState("")
 
   // GET request
   useEffect(() => {
@@ -16,15 +17,27 @@ function PokemonPage() {
     .then(data => setPokemons(data))
   }, [])
 
+    // capture user search Input
+    function handleSearch(e) {
+      const search = e.target.value
+      setSearchText(search)
+      console.log(search)
+    }
+  
+
+  // onSeach CB from Seach
+  const searchResult = pokemons.filter(pokemon => 
+      pokemon.name.toLowerCase().includes(searchText.toLowerCase()))
+
   return (
     <Container>
       <h1>Pokemon Searcher</h1>
       <br />
       <PokemonForm />
       <br />
-      <Search />
+      <Search onSearch={handleSearch}/>
       <br />
-      <PokemonCollection pokemons={pokemons}/>
+      <PokemonCollection pokemons={searchResult}/>
     </Container>
   );
 }
